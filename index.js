@@ -18,7 +18,7 @@ mongoose.connect(process.env.MONGOURI, {
 
 // CORS setup for frontend communication
 app.use(cors({
-  origin: ["https://i-am-form.netlify.app", "https://odishaformbackend-1.onrender.com"],
+  origin: ["https://i-am-form.netlify.app", "https://odishaformbackend-1.onrender.com/api"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
