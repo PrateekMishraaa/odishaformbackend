@@ -1,37 +1,41 @@
 import express from "express";
 import dotenv from "dotenv";
-dotenv.config();
-const app = express();
-const PORT = process.env.PORT || 2000;
-
 import cors from "cors";
 import mongoose from "mongoose";
 import Contact from "./routes/Contact.js";
 
-// Use CORS middleware
-app.use(cors());
+dotenv.config();
 
-// Body parser
-app.use(express.json());
+const app = express();
+const PORT = process.env.PORT || 2000;
+
+// MongoDB connection
+mongoose.connect(process.env.MONGOURI, {
+ 
+})
+.then(() => console.log("✅ Connected to MongoDB"))
+.catch((err) => console.error("❌ MongoDB connection error:", err.message));
+
+// CORS setup for frontend communication
 app.use(cors({
-  origin: "https://i-am-form.netlify.app", // replace with your frontend URL
+  origin: ["https://i-am-form.netlify.app", "https://odishaformbackend-1.onrender.com"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
 
+// Body parser
+app.use(express.json());
+
 // API routes
 app.use("/api", Contact);
 
-// MongoDB connection
-mongoose.connect(process.env.MONGOURI)
-  .then(() => console.log("I am connected to the database"))
-  .catch((err) => console.log("Database connection error:", err.message));
-
-// Root route
+// Test route
 app.get("/", (req, res) => {
-  console.log("server is running");
-  res.send("Hello world");
+  console.log("Server is running...");
+  res.send("Hello from the backend!");
 });
 
 // Start server
-app.listen(PORT, () => console.log(`Server is running on PORT ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`🚀 Server is running on PORT ${PORT}`);
+});
