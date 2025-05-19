@@ -18,7 +18,7 @@ mongoose.connect(process.env.MONGOURI, {
 .then(() => console.log("✅ Connected to MongoDB"))
 .catch((err) => console.error("❌ MongoDB connection error:", err.message));
 
-// CORS setup for frontend communication
+
 app.use(cors({
   origin: ["https://i-am-form.netlify.app"],
   methods: ["GET", "POST", "PUT", "DELETE"],
@@ -29,7 +29,7 @@ app.use(cors({
 app.use(express.json());
 
 // API routes
-app.use("/api", Contact);
+app.use("/", Contact);
 
 // Test route
 app.get("/", (req, res) => {
