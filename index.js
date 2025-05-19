@@ -1,3 +1,4 @@
+// server.js
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -11,16 +12,17 @@ const PORT = process.env.PORT || 2000;
 
 // MongoDB connection
 mongoose.connect(process.env.MONGOURI, {
- 
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 })
 .then(() => console.log("✅ Connected to MongoDB"))
 .catch((err) => console.error("❌ MongoDB connection error:", err.message));
 
 // CORS setup for frontend communication
 app.use(cors({
-  origin: ["https://i-am-form.netlify.app", "https://odishaformbackend-1.onrender.com/api/contact"],
+  origin: ["https://i-am-form.netlify.app"],
   methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true
+  credentials: true,
 }));
 
 // Body parser
@@ -31,7 +33,6 @@ app.use("/api", Contact);
 
 // Test route
 app.get("/", (req, res) => {
-  console.log("Server is running...");
   res.send("Hello from the backend!");
 });
 
