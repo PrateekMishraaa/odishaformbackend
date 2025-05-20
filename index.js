@@ -20,7 +20,7 @@ mongoose.connect(process.env.MONGOURI, {
 
 
 app.use(cors({
-  origin: ["https://i-am-form.netlify.app"],
+  origin: ["https://odishaholiday.netlify.app"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
 }));
